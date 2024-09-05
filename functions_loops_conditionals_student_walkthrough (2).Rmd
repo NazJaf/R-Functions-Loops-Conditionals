@@ -1,0 +1,219 @@
+## Functions and Conditionals
+
+### Conditionals
+
+The basic syntax for an if statement goes like this:
+
+if (logical statement) {
+  do something
+} else {
+  do something else
+}
+
+
+The logical statements should boil down to a boolean; for example:
+
+x <- 5
+
+if (x > 3) {
+  print("x is greater than 3")
+} else {
+  print("x is less than or equal to 3")
+}
+
+We can also add else if statements in the middle if we need more options.
+
+x <- 3
+
+if (x > 5) {
+  print("x is greater than 5")
+} else if (x == 5) {
+  print("x is equal to 5")
+} else {
+  print("x is less than 5")
+}
+
+Neat! We can also nest conditionals just like we do in Python.
+
+x <- 5
+y <- 10
+
+if (x > 3) {
+  if (y > 8) {
+    print("x is greater than 3 and y is greater than 8")
+  } else {
+    print("x is greater than 3 but y is not greater than 8")
+  }
+} else {
+  print("x is 3 or less")
+}
+
+
+
+Neat! Now, let's look at another core part of R programming - Loops!
+
+### Loops
+
+for (i in 1:15){
+print(i)
+}
+
+
+We can also do nifty stuff with our vectors, such as apply changes to specific indices of our data.
+
+v<-c(1,2,4,7,8,10)
+
+for (i in 1:length(v)){
+ v[i]<-v[i]*2
+ print(v)
+}
+print(v)
+
+We can loop over more than just lists:
+
+
+my_list <- list(a = 1, b = 2, c = 3)
+
+for (item in my_list) {
+  print(item)
+}
+
+Like Python, we have while loops in R:
+
+x <- 1
+
+while (x <= 5) {
+  print(x)
+  x <- x + 1
+}
+
+## Functions
+
+When should we use functions?
+
+
+
+
+our_function <- function(optional_params){
+  # do some stuff
+}
+```
+
+An example:
+
+add_numbers <- function(a, b) {
+  return(a + b)
+}
+
+
+This is all cool.. but it didn't do anything. We need to call the function!
+
+result <- add_numbers(5, 10)
+print(result)  
+
+
+Notice that in the background here, we are looping over each item in the array, but we never write a for loop! Keep this in mind, since when you pass in a large data set, the changes made by functions aren't quite immediate - the computer does have to go over each item in your data set, and change them one at a time.
+
+A shortcut of sorts is to use the `apply()` function, which operates very similarly to Python's `map()`. Note that `apply` syntax goes as follows: `apply(X, MARGIN, FUN)` where X is the data set to use, MARGIN is specification for rows or columns, and FUN is the function to apply.
+
+my_matrix <- matrix(1:6, nrow=2, ncol=3)
+
+row_sums <- apply(my_matrix, 1, sum)
+print(row_sums) 
+
+col_sums <- apply(my_matrix, 1, sum)
+print(col_sums)
+
+
+It is common to use `mean`, `median`, `sum`, `min`, or `max` with `apply`, but we can also use our user-defined functions as well. Note that apply() only works with matrices.
+
+```{r}
+
+```
+
+### Homework
+
+1.  Do 5 CodeWars problems in R. Share your solutions here:
+
+    #1 convert string 
+    
+    number_to_string <- function(n) {
+  as.character(n)
+}`
+     #2 return negative number
+     
+     make_negative <- function(num) {
+  if (num > 0) {
+    negative_num <- -1 * num
+    return(negative_num)
+  } else {
+    return(num)
+  }
+}
+    #3   condition 
+    
+    hoop_count <- function(n){
+ if (n>=10){
+   return("Great, now move on to tricks")
+ 
+ }
+  else{
+    return("Keep at it until you get it")
+  }
+} 
+
+   #4 uppercase
+   
+   uppercase <- function(s) {
+  return(toupper(s))
+}
+
+   #  5 unlist+split
+   
+   string_to_array <- function(s){
+  words<-unlist(strsplit(s,"\\s+"))
+  return(words)
+}
+
+   
+   
+2.  Create a function that checks an input of type `int` and returns fizz if the number is a multiple of 3, buzz if the number is a multiple of 5, and fizzbuzz if the number is a multiple of 3 and 5.
+
+fizzbuzz <- function(n) {
+  if (n %% 3 == 0 & n %% 5 == 0) {
+    return("FizzBuzz")
+  } else if (n %% 3 == 0) {
+    return("Fizz")
+  } else if (n %% 5 == 0) {
+    return("Buzz")
+  } else {
+    return(as.character(n))
+  }
+}
+print(fizzbuzz(15))  # Outputs "FizzBuzz"
+
+
+3.  **Mario Challenge:** In the classic Super Mario games, Mario ends each level by ascending a flight of stairs and leaping off the top to arrive at the castle at the end. (See [here](https://youtu.be/-avspZlbOWU?t=55) for details). We can imagine that each of the bricks of the stairs is a character X. Create a function that prints out a set of stairs. For example:
+
+    If the function is called marioStairs() and we pass in the value 4, we would expect to see stairs with a length of 4 and a height of 4:
+
+    X
+
+    XX
+
+    XXX
+
+    XXXX
+
+    
+
+    # You may feel more comfortable figuring this out in Python first, then translating into R later.
+    
+    ```
+    marioStairs <- function(height) {
+  for (i in 1:height) {
+    cat(rep("X", i), "\n")
+  }
+}
+ 
+marioStairs(4)
